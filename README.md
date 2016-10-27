@@ -16,6 +16,15 @@ The completed circuit diagram is shown below. It includes the following connecti
 <li>Piezo Buzzer connected to D2 </li>
 <li>Neopixel 16 ring LED connected to D1 </li>
 </ul>
-
 <img src = "https://github.com/shahutsav/IA2/blob/master/circuit.JPG">
+
+<hr>
+<h3>Low Pressure Reading </h3>
+<p>When the pressure reading is between 0 and 192, 4 LED's glow red indicating low pressure. The output is shown below. </p>
+<img src="https://github.com/shahutsav/IA2/blob/master/no%20pressure.JPG">
+<hr>
+
+<h3>High Pressure Reading </h3>
+<p>When the pressure reading is above 576, the LED's glow green indicating high pressure. This triggers the buzzer to play the tune. </p>
+<img src="https://github.com/shahutsav/IA2/blob/master/high_pressure.JPG">
 <hr>
