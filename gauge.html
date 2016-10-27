@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+</head>
+<body>
+<svg id="fillgauge1" width="97%" height="250"></svg>
+<svg id="fillgauge3" width="19%" height="200"></svg>
+<script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+<script src="liquidFillGauge.js" type="text/javascript"></script>
+<script type="text/javascript">
+    d3.select("#fillgauge1").call(d3.liquidfillgauge, 0);
+    d3.select("#fillgauge3").call(d3.liquidfillgauge, 0, {
+      circleColor: "#D4AB6A",
+      textColor: "#553300",
+      waveTextColor: "#805615",
+      waveColor: "#AA7D39",
+      circleThickness: 0.1,
+      circleFillGap: 0.2,
+      textVertPosition: 0.8,
+      waveAnimateTime: 2000,
+      waveHeight: 0.3,
+      waveCount: 1
+    });
+
+    setInterval(function(){
+        var deviceID = "320021000647353138383138";
+        var accessToken = "04a44acad6adda6d4c57d7e7d458594fe6f2ef62";
+        var eventSource = new EventSource("https://api.particle.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+        eventSource.addEventListener('open', function (e) {
+            console.log("Opened!");
+        }, false);
+
+        eventSource.addEventListener('error', function (e) {
+            console.log("Errored!");
+        }, false);
+
+        eventSource.addEventListener('fsrValue', function (e) {
+            var parsedData = JSON.parse(e.data);
+            var pressure = Math.round((parsedData.data/1024)*100);
+            //console.log(pressure);
+            d3.select("#fillgauge1").on("valueChanged")(pressure);
+            d3.select("#fillgauge3").on("valueChanged")(pressure);
+        }, false);
+    },500)
+</script>
+</body>
+</html>

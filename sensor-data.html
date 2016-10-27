@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IA2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+<p> <span id="read"></span></p>
+<script>
+
+        var deviceID = "320021000647353138383138";
+        var accessToken = "04a44acad6adda6d4c57d7e7d458594fe6f2ef62";
+        var eventSource = new EventSource("https://api.particle.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
+
+        eventSource.addEventListener('open', function (e) {
+            console.log("Opened!");
+        }, false);
+
+        eventSource.addEventListener('error', function (e) {
+            console.log("Errored!");
+        }, false);
+
+        eventSource.addEventListener('fsrValue', function (e) {
+            var parsedData = JSON.parse(e.data);
+            var theSpan = document.getElementById("read");
+            theSpan.innerHTML = "Current pressure is " + parsedData.data
+            theSpan.style.fontSize = "42px";
+        }, false);
+
+
+</script>
+</body>
+</html>
