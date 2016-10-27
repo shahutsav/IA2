@@ -16,6 +16,6 @@ The completed circuit diagram is shown below. It includes the following connecti
 <li>Piezo Buzzer connected to D2 </li>
 <li>Neopixel 16 ring LED connected to D1 </li>
 </ul>
-<img src = "circuit.jpg">
 
+<img src = "https://github.com/shahutsav/IA2/blob/master/circuit.JPG">
 <hr>
