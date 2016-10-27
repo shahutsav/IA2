@@ -28,3 +28,6 @@ The completed circuit diagram is shown below. It includes the following connecti
 <p>When the pressure reading is above 576, the LED's glow green indicating high pressure. This triggers the buzzer to play the tune. </p>
 <img src="https://github.com/shahutsav/IA2/blob/master/high_pressure.JPG">
 <hr>
+
+You can view the visualization here. However, it will require the device and sensors to be attached.
+<a href = "http://rawgit.com/shahutsav/IA2/master/gauge.html">Live Visualization</a>
