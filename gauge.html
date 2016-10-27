@@ -9,12 +9,13 @@
 </head>
 <body>
 <svg id="fillgauge1" width="97%" height="250"></svg>
-<svg id="fillgauge3" width="19%" height="200"></svg>
+<svg id="fillgauge2" width="45%" height="200"></svg>
+<svg id="fillgauge3" width="45%" height="200"></svg>
 <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
 <script src="liquidFillGauge.js" type="text/javascript"></script>
 <script type="text/javascript">
-    d3.select("#fillgauge1").call(d3.liquidfillgauge, 0);
-    d3.select("#fillgauge3").call(d3.liquidfillgauge, 0, {
+    d3.select("#fillgauge1").call(d3.liquidfillgauge, 10);
+    d3.select("#fillgauge2").call(d3.liquidfillgauge, 20, {
       circleColor: "#D4AB6A",
       textColor: "#553300",
       waveTextColor: "#805615",
@@ -26,28 +27,43 @@
       waveHeight: 0.3,
       waveCount: 1
     });
+    d3.select("#fillgauge3").call(d3.liquidfillgauge, 3, {
+      circleThickness: 0.4,
+      circleColor: "#6DA398",
+      textColor: "#0E5144",
+      waveTextColor: "#6DA398",
+      waveColor: "#246D5F",
+      textVertPosition: 0.52,
+      waveAnimateTime: 5000,
+      waveHeight: 0,
+      waveAnimate: false,
+      waveCount: 2,
+      waveOffset: 0.25,
+      textSize: 1.2,
+      minValue: 0,
+      maxValue: 1000,
+      displayPercent: false
+    });
 
-    setInterval(function(){
+    setInterval(function() {
         var deviceID = "320021000647353138383138";
         var accessToken = "04a44acad6adda6d4c57d7e7d458594fe6f2ef62";
         var eventSource = new EventSource("https://api.particle.io/v1/devices/" + deviceID + "/events/?access_token=" + accessToken);
-
         eventSource.addEventListener('open', function (e) {
             console.log("Opened!");
         }, false);
-
         eventSource.addEventListener('error', function (e) {
             console.log("Errored!");
         }, false);
-
         eventSource.addEventListener('fsrValue', function (e) {
             var parsedData = JSON.parse(e.data);
-            var pressure = Math.round((parsedData.data/1024)*100);
+            var pressure = Math.round((parsedData.data / 1024) * 100);
             //console.log(pressure);
             d3.select("#fillgauge1").on("valueChanged")(pressure);
-            d3.select("#fillgauge3").on("valueChanged")(pressure);
-        }, false);
-    },500)
+            d3.select("#fillgauge2").on("valueChanged")(pressure);
+            d3.select("#fillgauge3").on("valueChanged")(parsedData.data);
+        }, 2000);
+    });
 </script>
 </body>
 </html>
